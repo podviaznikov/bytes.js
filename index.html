@@ -14,11 +14,12 @@ var buffer = Bytes.createBuffer(
         0x4d, 0x44, 0x32, 0x30, // String - MD20
         0x61                    // Char - a
     );
-console.log(buffer);
+//console.log(buffer);
 var bytes = Bytes.create(buffer);
 console.log(bytes);
-console.log(bytes.getString(4,8));
-console.log(bytes.getInt32(0));
+console.log(bytes.getString(4,16));
+console.log(bytes.getChar(20));
+//console.log(bytes.getInt32(0));
 </script>
 </body>
 </html>

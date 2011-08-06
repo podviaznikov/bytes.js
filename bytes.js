@@ -3,26 +3,23 @@
 var Bytes = Object.create({},{
     create:{
         value:function(buffer,byteOffset,byteLength){
-            var bytes = Object.create(Bytes);
-            bytes.offset = byteOffset || 0;
-            bytes.length = byteLength || buffer.byteLength;
-            bytes._view = new DataView(buffer,bytes.offset,bytes.length);
+            var offset = byteOffset || 0,
+                length = byteLength || buffer.byteLength,
+                view = new DataView(buffer, offset, length),
+                bytes = Object.create(Bytes,{
+                    offset:{
+                        value:offset
+                    },
+                    length:{
+                        value:length
+                    },
+                    view:{
+                        value:view
+                    }
+                });
             return bytes;
         }
     },
-//    offset:{
-//        get:function(){
-//            return this._offset;
-//        },
-//        set:function(offset){
-//            this._offset = offset;
-//        }
-//    },
-//    length:{
-//        get:function(){
-//            return this.length;
-//        }
-//    },
     getChar:{
         value:function(byteOffset){
             return String.fromCharCode(this.getUint8(byteOffset));
@@ -33,52 +30,57 @@ var Bytes = Object.create({},{
 			var charCodes = [],
 			    i = byteOffset || 0;
 			for (; i < length+byteOffset; ++i){
-			    console.log(i);
 				charCodes[i] = String.fromCharCode(this.getInt8(i));
-				console.log(String.fromCharCode(this.getInt8(i)));
 			}
-			// Use Int8Array and String.fromCharCode to extract a string
 			return charCodes.join('');
         }
     },
+    // method from data view specification
     getInt8:{
         value:function(byteOffset){
-            return this._view.getInt8(byteOffset);
+            return this.view.getInt8(byteOffset);
         }
     },
+    // method from data view specification
     getUint8:{
         value:function(byteOffset){
-            return this._view.getUint8(byteOffset);
+            return this.view.getUint8(byteOffset);
         }
     },
+    // method from data view specification
     getInt16:{
         value:function(byteOffset,littleEndian){
-            return this._view.getInt16(byteOffset,littleEndian);
+            return this.view.getInt16(byteOffset,littleEndian);
         }
     },
+    // method from data view specification
     getUint16:{
         value:function(byteOffset,littleEndian){
-            return this._view.getUint16(byteOffset,littleEndian);
+            return this.view.getUint16(byteOffset,littleEndian);
         }
     },
+    // method from data view specification
     getInt32:{
         value:function(byteOffset,littleEndian){
-            return this._view.getInt32(byteOffset,littleEndian);
+            return this.view.getInt32(byteOffset,littleEndian);
         }
     },
+    // method from data view specification
     getUint32:{
         value:function(byteOffset,littleEndian){
-            return this._view.getUint32(byteOffset,littleEndian);
+            return this.view.getUint32(byteOffset,littleEndian);
         }
     },
+    // method from data view specification
     getFloat32:{
         value:function(byteOffset,littleEndian){
-            return this._view.getFloat32(byteOffset,littleEndian);
+            return this.view.getFloat32(byteOffset,littleEndian);
         }
     },
+    // method from data view specification
     getFloat64:{
         value:function(byteOffset,littleEndian){
-            return this._view.getFloat64(byteOffset,littleEndian);
+            return this.view.getFloat64(byteOffset,littleEndian);
         }
     },
 
